@@ -1,3 +1,28 @@
+body{
+  background-color: paleturquoise;
+}
+
+
 #root {
-  color: red;
+  color:brown;
+  
+}
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 30px;
+  text-align: center;
+}
+
+@media screen and (min-width: 580px){
+  .root{
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 7px;
+  }
+}
+
+.back-btn{
+  height: 30px;
+  width: 100px;
 }

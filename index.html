@@ -9,7 +9,17 @@
   </head>
 
   <body>
-    <div id="root">
+    <div id="main-root">
+      <label>
+        Choose episode:
+        <select id="select">
+          <option value="all episodes" selected >all episodes</option>
+
+        </select>
+      </label>
+      <input type="text" id="search-bar" name="search-bar" placeholder="search"/>
+      <label for="search-bar" id="lable">Display 0/0 episodes</label>
+      <section id="root" class="root"></section>
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
