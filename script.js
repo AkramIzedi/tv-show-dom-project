@@ -1,5 +1,9 @@
 //You can edit ALL of the code here
 const lable = document.getElementById("lable");
+const rootElem = document.getElementById("root");
+const allEpisodes = getAllEpisodes();
+const select = document.querySelector("#select");
+const searchBar = document.querySelector("#search-bar");
 
 function setup() {
   const allEpisodes = getAllEpisodes();
@@ -59,3 +63,68 @@ console.log(selectedEpisodes);
   result = makePageForEpisodes(selectedEpisodes);
   lable.innerText = `Displaying ${selectedEpisodes.length}/${allEpisodes.length} episodes`;
 });
+
+//select element 
+allEpisodes.forEach((episode) => {
+let option = document.createElement("option");
+let seasonEpisodeNumber = getSeasonEpisodeNumber(episode);
+option.innerText = `${episode.name} ${seasonEpisodeNumber}`;
+select.appendChild(option);
+});
+
+//get season&episode number
+function getSeasonEpisodeNumber(episode) {
+  let seasonString = episode.season.toString().padStart(2, "0");
+  let episodeString = episode.number.toString().padStart(2, "0");
+  return `-S${seasonString} E${episodeString}`;
+}
+
+
+//get one option
+select.addEventListener("change" , (event) => {
+  rootElem.textContent = "";
+
+  if (event.target.value !== "all episodes") {
+    console.log(event.target,value);
+    searchBar.value = "";
+    const selectedEpisode = event.target.value.slice(-2);
+    const selectedSeason = event.target.value.slice(-5, -3);
+    const selectedMovie = allEpisodes.filter((episode) =>{
+      if (episode.season == selectedSeason && episode.number == selectedEpisode){
+        return episode;
+      }
+    });
+    rootElem.innerHTML = makePageForEpisodes(selectedMovie);
+  } else {
+    searchBar.value = "";
+    setup();
+  }
+})
+
+//fill selectShow
+allShow.sort((a,b) =>
+a.name.toLowerCase().localCompare(b.name.toLowerCase())
+);
+
+allShows.forEach((show) =>{
+  let option = document.createElement("option");
+  option.innerText = `${show.name}`;
+  selectShow.appendChild(option);
+})
+
+//choose episode
+selectShow.addEventListener("change", (event) =>{
+  rootElem.textContent = "";
+  lable.innerText = `Display 0 / 0 episodes`;
+  let showName = event.target.value;
+
+  let showSelected = allShows.find((show) => show.name === showName );
+  let showId = showSelected.id;
+  })
+
+  function fetchEpisodesForShow(showId) {
+    fetch(`https://api.tvmaze.com/shows/${showId} / episodes`)
+    .then((Response)=>Response.json())
+    .then((result) => makePageForEpisodes(result));
+    
+  }
