@@ -1,10 +1,13 @@
 body{
-  background-color: paleturquoise;
+  background-color: rgb(98, 125, 125);
+}
+#main-root{
+  width: 100%;
 }
 
 
 #root {
-  color:brown;
+  color:rgb(4, 4, 4);
   
 }
 .root {
@@ -30,4 +33,70 @@ body{
 .margin-top-bottom{
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+#showPage{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: 
+  'showImg showUl'
+  'showSummary showSummary';
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: midnightblue;
+}
+
+
+#divShowImg{
+  grid-area: showImg;
+  width: 25%;
+  margin-top: 20px;
+}
+
+
+
+#divShowSummary{
+grid-area: showSummary;
+padding: 10px;
+border-radius: 4px;
+}
+
+
+#divShowUl{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: showUl;
+border-radius: 4px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+#div-btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#btn{
+  text-align: center;
+  margin: 10px;
+}
+
+@media screen and  ( min-width: 600px){
+  #showPage{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 'showImg showSummary showUl';
+    gap: 20px;
+    background-color: lightseagreen;
+    align-content: center;
+  }
+  
 }

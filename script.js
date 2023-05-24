@@ -125,6 +125,47 @@ selectShow.addEventListener("change", (event) =>{
   function fetchEpisodesForShow(showId) {
     fetch(`https://api.tvmaze.com/shows/${showId} / episodes`)
     .then((Response)=>Response.json())
-    .then((result) => makePageForEpisodes(result));
+    .then((result) => { makePageForEpisodes(result);
+    select.innerText="";
+    fillSelectBox(result);
+    allFetchEpisodes = result
+  })
     
   }
+
+  //level 500
+  //create HTML form
+  function makePageForShow(){
+    let output = "";
+    allShows.sort((a , b) => a.name.toLowerCase().localCompare(b.name.toLowerCase()));
+    allShows.forEach(show =>{
+      output += `
+      <div id="showPage">
+        <div id="divShowImg">
+        <img src="${show.image !== null ? show.image.medium : ""}">
+      </div>
+      <div id= "divShowSummery">
+      <h1 style="text-align:center;">${show.name}</h1>
+      <p>${show.summary}</p>
+      </div>
+      <div id=divShowUl">
+      <ul>
+        <li>rated:${show.rating.average}</li>
+        <li>Genres:${show.genres}</li>
+        <li>Status:${show.status}</li>
+        <li>Runtime:${show.runtime}</li>
+      </ul>
+    </div>
+  </div>
+  `;
+    });
+    ShadowRoot.innerHTML = output;
+  }
+
+  //EventListener for button
+  GamepadButton.addEventListener("click" , (event)=>{
+    event.preventDefault();
+    rootElem.textContent ="";
+    input.value = "";
+    makePageForShow(allShows);
+  })
